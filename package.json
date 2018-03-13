@@ -19,5 +19,22 @@
   },
   "dependencies": {
     "mysql": "^2.15.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frge/sqlay.git"
+  },
+  "bugs": {
+    "url": "https://github.com/frge/sqlay/issues"
+  },
+  "homepage": "https://github.com/frge/sqlay#readme",
+  "keywords": [
+    "mysql",
+    "query",
+    "model",
+    "querybuilder",
+    "modelbuilder",
+    "sql",
+    "node-sql"
+  ]
 }
