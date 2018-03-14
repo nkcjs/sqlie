@@ -2,31 +2,43 @@ const {
   SelectBuilder,
   DeleteBuilder,
   InsertBuilder,
-  UpdateBuilder
+  UpdateBuilder,
+  createModel
 } = require('./dist/index');
 
 const {expect} = require('chai');
 
 describe('select', function () {
   it('简单查询', function () {
-    expect(new SelectBuilder().from('users').build())
-      .to.be.equal('SELECT * FROM `users`');
+    expect(new SelectBuilder()
+      .from('users')
+      .build())
+      .to
+      .be
+      .equal('SELECT * FROM `users`');
   });
-  
+
   it('带条件查询', function () {
-    expect(new SelectBuilder().from('users').where('created', '>').build())
-      .to.be.equal('SELECT * FROM `users` WHERE `created` > ?');
+    expect(new SelectBuilder()
+      .from('users')
+      .where('created', '>')
+      .build())
+      .to
+      .be
+      .equal('SELECT * FROM `users` WHERE `created` > ?');
   });
-  
+
   it('带多个条件的', function () {
     expect(new SelectBuilder()
       .from('users')
       .where('created', '>')
       .andWhere('role')
       .build()) // done
-      .to.be.equal('SELECT * FROM `users` WHERE `created` > ? AND `role` = ?');
+      .to
+      .be
+      .equal('SELECT * FROM `users` WHERE `created` > ? AND `role` = ?');
   });
-  
+
   it('OR和AND混用', function () {
     expect(new SelectBuilder()
       .from('users')
@@ -35,7 +47,7 @@ describe('select', function () {
       .build()) // done
       .to.be.equal('SELECT * FROM `users` WHERE `created` > ? OR `role` = ?');
   });
-  
+
   it('复合条件', function () {
     expect(new SelectBuilder()
       .from('users')
@@ -44,7 +56,7 @@ describe('select', function () {
       .build())// done
       .to.be.equal('SELECT * FROM `users` WHERE `created` > ? AND (`role` = ? AND `age` > 18)');
   });
-  
+
   it('join一张表', function () {
     expect(new SelectBuilder()
       .from('users', 'u')
@@ -54,7 +66,7 @@ describe('select', function () {
       .be
       .equal('SELECT * FROM `users` AS `u` JOIN `roles` AS `r` ON `r`.`role` = `u`.`role`');
   });
-  
+
   it('left join一张表', function () {
     expect(new SelectBuilder()
       .from('users', 'u')
@@ -65,14 +77,16 @@ describe('select', function () {
       .be
       .equal('SELECT `u`.* FROM `users` AS `u` LEFT JOIN `roles` AS `r` ON `r`.`role` = `u`.`role`');
   });
-  
+
   it('join查询结果', function () {
-    const sql = new SelectBuilder()
+    expect(new SelectBuilder()
       .from('users', 'u')
       .select('*')
       .join(selector => selector.from('roles').setAlias('r'))
-      .build();
-    expect(sql).to.be.equal('SELECT `u`.* FROM `users` AS `u` JOIN (SELECT * FROM `roles`) AS `r`');
+      .build()) // done
+      .to
+      .be
+      .equal('SELECT `u`.* FROM `users` AS `u` JOIN (SELECT * FROM `roles`) AS `r`');
   });
 });
 
@@ -86,7 +100,7 @@ describe('delete', function () {
       .be
       .equal('DELETE FROM `users` WHERE `age` > ?')
   });
-  
+
   it('多条件', function () {
     expect(new DeleteBuilder()
       .from('users')
@@ -96,21 +110,20 @@ describe('delete', function () {
       .to
       .be
       .equal('DELETE FROM `users` WHERE `age` > ? OR `age` < ?')
-  })
+  });
 });
-
 
 describe('insert', function () {
   it('添加一条数据', function () {
     expect(new InsertBuilder()
       .into('users')
       .set('name', 'ok')
-      .setSome('role', 'hero')
+      .setSome(['role', 'hero'])
       .build({})) // done
       .to
       .be
-      .equal('INSERT INTO `users` (`name`, `role`) VALUES (\'ok\', ?)');
-  })
+      .equal("INSERT INTO `users` (`name`, `role`, `hero`) VALUES ('ok', ?, ?)");
+  });
 });
 
 
@@ -121,10 +134,18 @@ describe('update', function () {
       .set('name', 'super girl')
       .setSome({})
       .where('age', '>')
-      .build({}))
+      .build({})) // done
       .to
       .be
-      .equal('UPDATE `users` SET `name` = \'super girl\' WHERE `age` > ?');
-    // UPDATE `users` SET name = 'super girl' WHERE `age` > ?
+      .equal("UPDATE `users` SET `name` = 'super girl' WHERE `age` > ?");
+  });
+
+  it('create model', function () {
+    expect(createModel('users')
+      .get('name,role,baby')
+      .build())
+      .to
+      .be
+      .equal('SELECT `name`, `role`, `baby` FROM `users`');
   });
 });

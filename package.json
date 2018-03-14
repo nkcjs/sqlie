@@ -6,7 +6,9 @@
   "author": "frge <frge@mail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rollup --config rollup.config.js"
+    "build": "rollup --config rollup.config.js",
+    "test": "mocha test.spec.js",
+    "dev": "npm run build && npm run test"
   },
   "devDependencies": {
     "@types/mysql": "^2.15.3",

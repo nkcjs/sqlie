@@ -786,7 +786,7 @@ class SelectBuilder extends ClauseBuilder {
         const parseSelectedColumns = (arr, alias) => {
             arr.forEach(item => {
                 if (item === '*') {
-                    fields.push(alias ? escapeId(alias) + '.*' : +'*');
+                    fields.push(alias ? escapeId(alias) + '.*' : '*');
                     return;
                 }
                 const parts = item.trim().split(/(?:^|\s+)as(?:\s+|$)/i);
@@ -814,7 +814,7 @@ class SelectBuilder extends ClauseBuilder {
         if (!fields.length) {
             fields.push('*');
         }
-        sql += 'SELECT ' + fields.join(',');
+        sql += 'SELECT ' + fields.join(', ');
         // [table]
         if (!this._table)
             error('Please use "from()" set table for the select.');

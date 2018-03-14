@@ -236,7 +236,7 @@ export class SelectBuilder extends ClauseBuilder implements ISelectBuilder {
     const parseSelectedColumns = (arr: Array<string>, alias?: string) => {
       arr.forEach(item => {
         if (item === '*') {
-          fields.push(alias ? escapeId(alias) + '.*' : +'*');
+          fields.push(alias ? escapeId(alias) + '.*' : '*');
           return;
         }
 
@@ -267,7 +267,7 @@ export class SelectBuilder extends ClauseBuilder implements ISelectBuilder {
       fields.push('*');
     }
 
-    sql += 'SELECT ' + fields.join(',');
+    sql += 'SELECT ' + fields.join(', ');
 
     // [table]
     if (!this._table) error('Please use "from()" set table for the select.');
