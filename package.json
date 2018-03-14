@@ -1,5 +1,5 @@
 {
-  "name": "sqlay",
+  "name": "sqlie",
   "version": "0.0.1",
   "description": "Simple model builder and Query builder working with NodeJS",
   "main": "dist/index.js",
