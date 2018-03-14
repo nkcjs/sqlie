@@ -1,7 +1,7 @@
 {
   "name": "sqlie",
   "version": "0.0.1",
-  "description": "Simple model builder and Query builder working with NodeJS",
+  "description": "A simple Query builder working with NodeJS.",
   "main": "dist/index.js",
   "author": "frge <frge@mail.com>",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "chai": "^4.1.2",
     "mocha": "^5.0.4",
     "rollup": "^0.56.5",
-    "rollup-plugin-typescript2": "^0.12.0",
+    "rollupK-plugin-typescript2": "^0.12.0",
     "typescript": "^2.7.2"
   },
   "dependencies": {
