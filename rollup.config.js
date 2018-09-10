@@ -1,6 +1,6 @@
 import typescript from 'rollup-plugin-typescript2';
 
-export default {
+export default [{
   input: 'src/index.ts',
   output: {
     file: 'dist/index.js',
@@ -11,4 +11,15 @@ export default {
       rollupCommonJSResolveHack: true
     })
   ]
-}
+}, {
+  input: 'src/index.ts',
+  output: {
+    file: 'dist/index.esm.js',
+    format: 'es',
+  },
+  plugins: [
+    typescript({
+      rollupCommonJSResolveHack: true
+    })
+  ]
+}]

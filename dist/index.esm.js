@@ -1,7 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
 function parseColumn(src) {
     let at = 0;
     const peek = () => src[at];
@@ -1037,14 +1033,4 @@ function execute(sql, params = []) {
 }
 ModelBuilder.execute = execute;
 
-exports.createModel = createModel;
-exports.setConnection = setConnection;
-exports.execute = execute;
-exports.symbol = symbol;
-exports.ClauseBuilder = ClauseBuilder;
-exports.DeleteBuilder = DeleteBuilder;
-exports.InsertBuilder = InsertBuilder;
-exports.JoinBuilder = JoinBuilder;
-exports.SelectBuilder = SelectBuilder;
-exports.JoinSelectBuilder = JoinSelectBuilder;
-exports.UpdateBuilder = UpdateBuilder;
+export { createModel, setConnection, execute, symbol, ClauseBuilder, DeleteBuilder, InsertBuilder, JoinBuilder, SelectBuilder, JoinSelectBuilder, UpdateBuilder };
